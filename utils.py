@@ -1,47 +1,64 @@
+"""
+All basic utility are here  for Hamster service
+"""
 import socket
-from protocol import HOST_IP,PORT_NUMBER,CONNECTIONS_LIST
-
-def create_tcp_socket():
-    """ Connecton orented protocol  """
-    try:    
-        global SOCKET
-        SOCKET = socket.socket(socket.AF_INET6,socket.SOCK_STREAM)
-    except socket.error as msg:
-        return f"Socket creation error {msg}"
-
-# def create_udp_socket():
-#     """ NON-Connecton orented protocol more faster than tcp  """
-#     try:
-#         global SOCKET
-#         SOCKET = socket.socket(socket.AF_INET6,socket.SOCK_DGRAM)
-#     except socket.error as msg:
-#         return f"Socket creation error {msg}"
-
-def bind_socket():
-    """Bind Host and port and start listening"""
-    try:
-        global SOCKET
-        SOCKET.bind((HOST_IP,PORT_NUMBER))
-        SOCKET.listen(5)
-    except socket.error as msg:
-        return f"Socket Binding error {msg}"
+from protocol import PORT_NUMBER
 
 
-def socket_accept():
-    """Accept connection and return it for send recive data"""
-    try:
-        global SOCKET
-        conn = SOCKET.accept()
-        return conn
-    except socket.error as msg:
-        return f"Socket Accepting error {msg}"
+#Host ip address for creating server
+HOST_IP = ""
 
-def connect_socket(server_ip=""):
-    """Connect to pear and return socket object for send recive data"""
-    try:
-        global SOCKET
-        SOCKET.connect((server_ip,PORT_NUMBER))
-        return SOCKET
-    except socket.error as msg:
-        return f"Socket Connecting error {msg}"
+# All Connected pear in this list
+CONNECTIONS_LIST = list()
+
+class Connection():
+    def __init__(self):
+        self.SOCKET=None   
+        
+    def create_tcp_socket(self):
+        """ Connecton orented protocol  """
+        try:    
+            
+            self.SOCKET = socket.socket(socket.AF_INET6,socket.SOCK_STREAM)
+
+        except socket.error as msg:
+            return f"Socket creation error {msg}"
+
+    # def create_udp_socket(self):
+    #     """ NON-Connecton orented protocol more faster than tcp  """
+    #     try:
+    #         global SOCKET
+    #         SOCKET = socket.socket(socket.AF_INET6,socket.SOCK_DGRAM)
+    #     except socket.error as msg:
+    #         return f"Socket creation error {msg}"
+
+    def bind_socket(self):
+        """Bind Host and port and start listening"""
+        try:
+            self.SOCKET.bind((HOST_IP,PORT_NUMBER))
+            self.SOCKET.listen(5)
+        except socket.error as msg:
+            return f"Socket Binding error {msg}"
+
+
+    def socket_accept(self):
+        """Accept connection and return it for send recive data"""
+        try:
+            conn = SOCKET.accept()
+            return conn
+        except socket.error as msg:
+            return f"Socket Accepting error {msg}"
+
+    def connect_socket(self,server_ip="",port=PORT_NUMBER):
+        """Connect to pear and return socket object for send recive data"""
+        try:
+            self.SOCKET.connect((server_ip,port))
+            return self.SOCKET
+        except socket.error as msg:
+            return f"Socket Connecting error {msg}"
+            
+    def get_my_ip(self):
+        """return current system ip address """
+        self.create_tcp_socket()
+        return self.connect_socket("google.com",80)
         
