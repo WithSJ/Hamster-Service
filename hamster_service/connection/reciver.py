@@ -38,3 +38,31 @@ class Revicer(Connector):
             return conn
         except socket.error as msg:
             raise RuntimeError(f"TCP Socket Accepting error {msg}") 
+        
+    def start(self):
+        """
+        accept connection and add in Connection List
+        """
+        while True:
+            conn = self.tcp_socket_accept()
+            self.check_in_conn_list(conn)
+
+    def check_in_conn_list(self,conn):
+        """
+        Check this connecction already in Connection List or not
+        if Connection ip already than don't add this 
+        if new conncetion have diffrent ip than older so remove 
+        old one and new one.
+        """
+        # till now we dont use username when username we use we add this 
+        #  {"socket_type":"tcp","username":conn_obj} in Connection_list
+        
+        insert_it = True
+        for ConnList in CONNECTIONS_LIST:
+            if conn[1][0] == ConnList[1][0]:
+                insert_it = False
+
+        if insert_it:                
+            CONNECTIONS_LIST.append(conn)
+
+
