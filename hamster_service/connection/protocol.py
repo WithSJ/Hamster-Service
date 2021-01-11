@@ -1,6 +1,5 @@
 """
-This file for hamster service standards 
-all technical criteria, methods, processes are here.
+All hamster_service network protocols here.
 """
 
 #All Sercives work on this port

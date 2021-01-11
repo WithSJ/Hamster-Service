@@ -1,8 +1,10 @@
 """
-Reciver Funtions are define here
+Hamster Revicer Service
 """
-from utils import Connection,CONNECTIONS_LIST
-from protocol import BUFFER_SIZE
+
+from hamster_service.connection.utils import Connection,CONNECTIONS_LIST
+from hamster_service.connection.protocol import BUFFER_SIZE
+
 
 def start():
     """
