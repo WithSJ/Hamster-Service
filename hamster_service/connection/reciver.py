@@ -1,45 +1,40 @@
 """
 Hamster Revicer Service
 """
+import socket
+from hamster_service.connection.connector import Connector
+from hamster_service.connection.utils import CONNECTIONS_LIST
+from hamster_service.protocol import BUFFER_SIZE,PORT_NUMBER
+from hamster_service.connection.utils import HOST_IP
 
-from hamster_service.connection.utils import Connection,CONNECTIONS_LIST
-from hamster_service.protocol import BUFFER_SIZE
 
-
-def start():
-    """
-    Start Reciver server accept connection and add them in Connection list
-    """
-    conn = Connection()
-    conn.create_tcp_socket()
-    conn.bind_socket()
+class Revicer(Connector):
     
-    while True:
-        conn_obj=conn.socket_accept()
-        CONNECTIONS_LIST.append(conn_obj)
-
-def data_recv():
-    """
-    recive data from all connection one by one
-    """
-    Data_Recived=list()
-    for conn in CONNECTIONS_LIST:
-        data = conn[0].recv(BUFFER_SIZE)
-        if not data:
-            Data_Recived.append((data,conn[1]))
-             
-    return Data_Recived
+    def __init__(self,socket_type="tcp",socket=None):
+        """
+        [socket_type] should be a string of protocol it can be TCP or UDP
+        [socket] if you have socket you can use it
+        """
+        self.SOCKET = socket
         
-            
+        if socket == None and socket_type.lower() == "tcp":
+            self.SOCKET = self.create_tcp_socket()
+        elif socket == None and socket_type.lower() == "udp":
+            self.SOCKET = self.create_udp_socket()
+    
+    def bind_tcp_socket(self):
+        """Bind Host and port and start listening"""
+        try:
+            self.SOCKET.bind((HOST_IP,PORT_NUMBER))
+            self.SOCKET.listen(5)
+        except socket.error as msg:
+            raise RuntimeError(f"TCP Socket Binding error {msg}") 
 
 
-
-
-
-
-
-
-
-# def all_conn():
-#     print(CONNECTIONS_LIST)
-        
+    def tcp_socket_accept(self):
+        """Accept connection and return it for send recive data"""
+        try:
+            conn = self.SOCKET.accept()
+            return conn
+        except socket.error as msg:
+            raise RuntimeError(f"TCP Socket Accepting error {msg}") 
