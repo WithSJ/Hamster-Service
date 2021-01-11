@@ -2,7 +2,7 @@
 All basic utility are here  for Hamster Network Service
 """
 import socket
-from hamster_service.connection.protocol import PORT_NUMBER
+from hamster_service.protocol import PORT_NUMBER
 
 
 #Host ip address for creating server
