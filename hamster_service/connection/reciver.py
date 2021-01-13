@@ -8,5 +8,24 @@ from hamster_service.protocol import BUFFER_SIZE,PORT_NUMBER
 from hamster_service.connection.utils import HOST_IP,Connection_OBJ
 
 
-class Revicer(Connector):
-    pass
+class Reciver(Connector):
+    
+    def __init__(self):
+        self.SOCKET = self.create_tcp_socket()
+        self.SOCKET.bind((HOST_IP,PORT_NUMBER))
+    
+    def start(self):
+        """
+        Start Revicer
+        """
+        self.SOCKET.listen(5)
+        while True:
+            conn,ip_port = self.SOCKET.accept()
+            obj = Connection_OBJ(connection=conn,ip_port=ip_port)
+            CONNECTIONS_LIST.append(obj)
+    
+    def stop(self):
+        """
+        Stop Revicer
+        """
+        self.SOCKET.close()

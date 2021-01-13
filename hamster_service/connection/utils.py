@@ -15,7 +15,7 @@ class Connection_OBJ:
         """
         Connected obj data store in this class object 
         """
-        self.conntion = connection
+        self.connection = connection
         self.ip_port = ip_port
         self.username = username
         self.socket_type = socket_type
