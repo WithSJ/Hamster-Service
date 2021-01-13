@@ -1,7 +1,4 @@
 import socket
-from hamster_service.protocol import PORT_NUMBER
-from hamster_service.connection.utils import HOST_IP
-
 class Connector():
     def __init__(self):
         self.SOCKET=None   

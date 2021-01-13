@@ -1,10 +1,18 @@
 """
 All basic utility are here  for Hamster Network Service
 """
+from hamster_service.connection.connector import Connector
 
 
 #Host ip address for creating server
-HOST_IP = ""
+def HOST_IP():
+    """get host ip address """
+    soc = Connector().create_tcp_socket()
+    soc.connect(("google.com",80))
+    ip = soc.getsockname()[0]
+    soc.close()
+    return ip
+    
 
 # All Connected pear in this list
 CONNECTIONS_LIST = list()
@@ -19,4 +27,5 @@ class Connection_OBJ:
         self.ip_port = ip_port
         self.username = username
         self.socket_type = socket_type
+        
     

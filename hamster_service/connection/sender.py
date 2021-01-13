@@ -9,5 +9,5 @@ class Sender(Connector):
     def __init__(self):
         self.SOCKET = self.create_tcp_socket()        
     
-    def connect(self):
-        self.SOCKET.connect(("",PORT_NUMBER))
+    def connect(self,ip_address=""):
+        self.SOCKET.connect((ip_address,PORT_NUMBER))

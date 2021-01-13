@@ -12,7 +12,7 @@ class Reciver(Connector):
     
     def __init__(self):
         self.SOCKET = self.create_tcp_socket()
-        self.SOCKET.bind((HOST_IP,PORT_NUMBER))
+        self.SOCKET.bind((HOST_IP(),PORT_NUMBER))
     
     def start(self):
         """
@@ -29,3 +29,5 @@ class Reciver(Connector):
         Stop Revicer
         """
         self.SOCKET.close()
+
+   
