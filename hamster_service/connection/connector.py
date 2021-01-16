@@ -1,4 +1,6 @@
 import socket
+
+
 class Connector():
     def __init__(self):
         self.SOCKET=None   

@@ -2,9 +2,11 @@
 Hamster Revicer Service
 """
 import socket
+
 from hamster_service.connection.connector import Connector
-from hamster_service.connection.utils import CONNECTIONS_LIST
-from hamster_service.connection.utils import HOST_IP,Connection_OBJ,BUFFER_SIZE,PORT_NUMBER
+from hamster_service.connection.utils import (BUFFER_SIZE, CONNECTIONS_LIST,
+                                              HOST_IP, PORT_NUMBER,
+                                              Connection_OBJ)
 
 
 class Reciver(Connector):
