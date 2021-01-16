@@ -20,3 +20,7 @@ class Connector():
             return self.SOCKET
         except socket.error as msg:
             return f"UDP Socket creation error {msg}"
+    
+    def socket_ip_port(self):
+        """Return Socket IP address and Port number"""
+        return self.SOCKET.getsockname()

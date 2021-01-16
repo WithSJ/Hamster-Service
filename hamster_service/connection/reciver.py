@@ -4,8 +4,7 @@ Hamster Revicer Service
 import socket
 from hamster_service.connection.connector import Connector
 from hamster_service.connection.utils import CONNECTIONS_LIST
-from hamster_service.protocol import BUFFER_SIZE,PORT_NUMBER
-from hamster_service.connection.utils import HOST_IP,Connection_OBJ
+from hamster_service.connection.utils import HOST_IP,Connection_OBJ,BUFFER_SIZE,PORT_NUMBER
 
 
 class Reciver(Connector):
@@ -30,4 +29,6 @@ class Reciver(Connector):
         """
         self.SOCKET.close()
 
-   
+    def recive_data(self):
+        """Recive Data from connected Socket and close connection."""
+        pass
