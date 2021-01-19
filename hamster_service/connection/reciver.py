@@ -31,7 +31,13 @@ class Reciver(Connector):
         """
         self.SOCKET.close()
 
-    def recive_data(self):
-        """Recive Data from connected Socket and close connection."""
-        pass
-    
+    def recive_request(self):
+        """Recive request from connected Socket and close connection."""
+        for conn in CONNECTIONS_LIST:
+            request = conn.connection.recv(BUFFER_SIZE)
+            print(request)
+            response = f"get data from {conn.ip_port}"
+            conn.connection.send(response.encode("utf-8"))
+            conn.connection.close()
+            CONNECTIONS_LIST.remove(conn)
+
