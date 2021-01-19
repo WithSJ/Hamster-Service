@@ -34,3 +34,4 @@ class Reciver(Connector):
     def recive_data(self):
         """Recive Data from connected Socket and close connection."""
         pass
+    
