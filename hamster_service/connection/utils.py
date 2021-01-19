@@ -30,7 +30,4 @@ class Connection_OBJ:
         """
         self.connection = connection
         self.ip_port = ip_port
-        self.username = username
-        self.socket_type = socket_type
-        
     
