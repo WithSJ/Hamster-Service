@@ -24,10 +24,10 @@ CONNECTIONS_LIST = list()
 
 
 class Connection_OBJ:
-    def __init__(self, connection=None,ip_port=None,username=None,socket_type=None):
+    def __init__(self, request=None,ip_port=None):
         """
         Connected obj data store in this class object 
         """
-        self.connection = connection
+        self.request = request
         self.ip_port = ip_port
     

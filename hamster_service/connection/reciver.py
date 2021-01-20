@@ -22,8 +22,10 @@ class Reciver(Connector):
         self.SOCKET.listen(5)
         while True:
             conn,ip_port = self.SOCKET.accept()
-            obj = Connection_OBJ(connection=conn,ip_port=ip_port)
+            request = conn.recv(BUFFER_SIZE)
+            obj = Connection_OBJ(request= request,ip_port=ip_port)
             CONNECTIONS_LIST.append(obj)
+            conn.close()
     
     def stop(self):
         """
@@ -33,11 +35,10 @@ class Reciver(Connector):
 
     def recive_request(self):
         """Recive request from connected Socket and close connection."""
-        for conn in CONNECTIONS_LIST:
-            request = conn.connection.recv(BUFFER_SIZE)
-            print(request)
-            response = f"get data from {conn.ip_port}"
-            conn.connection.send(response.encode("utf-8"))
-            conn.connection.close()
-            CONNECTIONS_LIST.remove(conn)
-
+        while True:
+            for conn in CONNECTIONS_LIST:
+                print("-"*10)
+                print(conn.ip_port)
+                print(conn.request)
+                print("#"*10)
+                CONNECTIONS_LIST.remove(conn)
