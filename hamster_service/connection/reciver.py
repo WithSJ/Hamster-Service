@@ -2,6 +2,7 @@
 Hamster Revicer Service
 """
 import socket
+import threading
 
 from hamster_service.connection.connector import Connector
 from hamster_service.connection.utils import (BUFFER_SIZE, CONNECTIONS_LIST,
@@ -9,16 +10,19 @@ from hamster_service.connection.utils import (BUFFER_SIZE, CONNECTIONS_LIST,
                                               Connection_OBJ)
 
 
-class Reciver(Connector):
+class Reciver(Connector,threading.Thread):
     
     def __init__(self):
         self.SOCKET = self.create_tcp_socket()
         self.SOCKET.bind((HOST_IP(),PORT_NUMBER))
     
-    def start(self):
+    def run(self):
         """
-        Start Revicer
+        Start Revicer in Thread
         """
+        self.daemon = False 
+        # use True if you want to run thread after program closed
+        
         self.SOCKET.listen(5)
         while True:
             conn,ip_port = self.SOCKET.accept()
@@ -29,16 +33,7 @@ class Reciver(Connector):
     
     def stop(self):
         """
-        Stop Revicer
+        Stop Revicer connection and Thread
         """
         self.SOCKET.close()
-
-    def recive_request(self):
-        """Recive request from connected Socket and close connection."""
-        while True:
-            for conn in CONNECTIONS_LIST:
-                print("-"*10)
-                print(conn.ip_port)
-                print(conn.request)
-                print("#"*10)
-                CONNECTIONS_LIST.remove(conn)
+        self.join()
