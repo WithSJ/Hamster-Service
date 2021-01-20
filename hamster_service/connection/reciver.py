@@ -26,10 +26,8 @@ class Reciver(Connector,threading.Thread):
         self.SOCKET.listen(5)
         while True:
             conn,ip_port = self.SOCKET.accept()
-            request = conn.recv(BUFFER_SIZE)
-            obj = Connection_OBJ(request= request,ip_port=ip_port)
+            obj = Connection_OBJ(connection=conn,ip_port=ip_port)
             CONNECTIONS_LIST.append(obj)
-            conn.close()
     
     def stop(self):
         """
