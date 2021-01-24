@@ -19,8 +19,6 @@ def HOST_IP():
     return ip
     
 
-# All Connected pear in this list
-CONNECTIONS_LIST = list()
 
 
 class Connection_OBJ:

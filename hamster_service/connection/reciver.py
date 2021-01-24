@@ -5,9 +5,10 @@ import socket
 import threading
 
 from hamster_service.connection.connector import Connector
-from hamster_service.connection.utils import (BUFFER_SIZE, CONNECTIONS_LIST,
-                                              HOST_IP, PORT_NUMBER,
+from hamster_service.connection.handler import CONNECTIONS_LIST
+from hamster_service.connection.utils import (BUFFER_SIZE,HOST_IP, PORT_NUMBER,
                                               Connection_OBJ)
+                                        
 
 
 class Reciver(Connector,threading.Thread):
