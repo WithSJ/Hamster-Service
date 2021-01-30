@@ -22,10 +22,10 @@ def HOST_IP():
 
 
 class Connection_OBJ:
-    def __init__(self, connection=None,ip_port=None):
+    def __init__(self, connection=None,ip_address=None):
         """
         Connected obj data store in this class object 
         """
         self.connection = connection
-        self.ip_port = ip_port
+        self.ip_address = ip_address
     
