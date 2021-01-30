@@ -1,5 +1,5 @@
 """
-Hamster Revicer Service
+Hamster Server Service
 """
 import socket
 import threading
@@ -11,7 +11,7 @@ from hamster_service.connection.utils import (BUFFER_SIZE,HOST_IP, PORT_NUMBER,
                                         
 
 
-class Reciver(Connector,threading.Thread):
+class Server(Connector,threading.Thread):
     
     def __init__(self):
         self.SOCKET = self.create_tcp_socket()
@@ -19,7 +19,7 @@ class Reciver(Connector,threading.Thread):
     
     def run(self):
         """
-        Start Revicer in Thread
+        Start Server in Thread
         """
         self.daemon = False 
         # use True if you want to run thread after program closed
@@ -32,7 +32,7 @@ class Reciver(Connector,threading.Thread):
     
     def stop(self):
         """
-        Stop Revicer connection and Thread
+        Stop Server connection and Thread
         """
         self.SOCKET.close()
         self.join()
