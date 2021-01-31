@@ -16,7 +16,8 @@ class Server(Connector,threading.Thread):
     def __init__(self):
         self.SOCKET = self.create_tcp_socket()
         self.SOCKET.bind((HOST_IP(),PORT_NUMBER))
-    
+        threading.Thread.__init__(self)
+        
     def run(self):
         """
         Start Server in Thread
@@ -27,7 +28,7 @@ class Server(Connector,threading.Thread):
         self.SOCKET.listen(5)
         while True:
             conn,ip_port = self.SOCKET.accept()
-            obj = Connection_OBJ(connection=conn,ip_port=ip_port)
+            obj = Connection_OBJ(connection=conn,ip_address=ip_port[0])
             CONNECTIONS_LIST.append(obj)
     
     def stop(self):

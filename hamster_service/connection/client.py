@@ -12,9 +12,9 @@ class Client(Connector,threading.Thread):
     def __init__(self):
         self.SOCKET = self.create_tcp_socket()        
     
-    def connect(self,ip_address=""):
+    def connect(self,ip_address="",port=PORT_NUMBER):
         try:
-            self.SOCKET.connect((ip_address,PORT_NUMBER))
+            self.SOCKET.connect((ip_address,port))
         except socket.error as msg:
             print(f"Client socket error {msg}")
     
