@@ -5,15 +5,15 @@ Auth = firebase.auth()
 
 def SignUp(email,password):
     if not Validator.isValidEmail(email):
-        return "Not a valid email."
+        return {"message":"Not a valid email."}
 
     if not Validator.isValidPassword(password):
-        return ["Not a valid password",
-        "It should contain (A-Z,a-z,0-9,@-#) char and size 8 char."]
+        return {"message":"Not a valid password."}
 
     try:
-        user = Auth.create_user_with_email_and_password(email,password)
-        return user
+        user=Auth.create_user_with_email_and_password(email,password)
+        Auth.send_email_verification(user["idToken"])
+        return {"message":"Check your email for verification."}
     except:
-        return "EMAIL EXISTS"
+        return {"message":"EMAIL EXISTS"}
     
