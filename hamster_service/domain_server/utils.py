@@ -7,7 +7,7 @@ class Validator:
         if len(email) > 7:
         
             if re.match(
-                "^.+@([?)[a-zA-Z0-9-.]+.([a-zA-Z]{2,3}|[0-9]{1,3})(]?)$",
+                "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,5}$",
                 email) != None:
                 return True
         
