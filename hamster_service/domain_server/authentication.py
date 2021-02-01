@@ -1,5 +1,5 @@
 from hamster_service.domain_server.config import firebase
-from hamster_service.domain_server.utils import Validator
+from hamster_service.domain_server.utils import Validator,User
 
 Auth = firebase.auth()
 
@@ -25,18 +25,17 @@ def Login(email,password):
         return {"message":"Not a valid password."}
 
     try:
-        user = Auth.sign_in_with_email_and_password(email,password)
-        userInfo = Auth.get_account_info(user["idToken"])
+        login_user = Auth.sign_in_with_email_and_password(email,password)
+        login_userInfo = Auth.get_account_info(login_user["idToken"])
 
-        if userInfo["users"][0]["emailVerified"] != True:
-            Auth.send_email_verification(user["idToken"])
+        user = User(login_user,login_userInfo)
+
+        if user.emailVerified != True:
+            Auth.send_email_verification(user.idToken)
             return {"message":"Email not verified. Check your email."}
 
-        return {
-            "message":"Login Successfull",
-            "user":user,
-            "userInfo": userInfo
-        }
+        return {"message":"Login Successfull",
+                "userData":user}
     except:
         return {"message":"INVALID EMAIL or PASSWORD "}
     
