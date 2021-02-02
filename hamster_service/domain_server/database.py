@@ -11,6 +11,7 @@ def CreateNewUser(localId,fullname="",username=""):
 
 
 def Update_Fullname_Username(localId,newFullname=None,newUsername=None):
+    newUsername = newUsername.lower()
     data = database.child("Users").child(localId).get()
     data = dict(data.val())
     
