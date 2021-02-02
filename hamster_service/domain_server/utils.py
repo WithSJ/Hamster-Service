@@ -28,7 +28,7 @@ class Validator:
         if len(email) > 7:
         
             if re.match(
-                "^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,5}$",
+                "^[A-Za-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,5}$",
                 email) != None:
                 return True
         
@@ -45,3 +45,17 @@ class Validator:
                 return True
         
         return False
+
+    @classmethod
+    def isValidUsername(cls,username):
+
+        if len(username) > 5:
+        
+            if re.match(
+                "^[A-Za-z]\\w{5,29}$",
+                username) != None:
+                return True
+        
+        return False
+
+    

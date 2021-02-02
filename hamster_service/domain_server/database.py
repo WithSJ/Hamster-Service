@@ -19,4 +19,5 @@ def Update_Fullname_Username(localId,newFullname=None,newUsername=None):
         data["username"] = newUsername
     
     database.child("Users").child(localId).update(data)
+    
         
