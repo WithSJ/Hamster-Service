@@ -5,6 +5,8 @@ from hamster_service.domain_server.database import CreateNewUser
 Auth = firebase.auth()
 
 def SignUp(email,password):
+    email = email.lower()
+
     if not Validator.isValidEmail(email):
         return {"message":"Not a valid email."}
 
@@ -21,6 +23,8 @@ def SignUp(email,password):
         return {"message":"EMAIL EXISTS"}
     
 def Login(email,password):
+    email = email.lower()
+
     if not Validator.isValidEmail(email):
         return {"message":"Not a valid email."}
 
@@ -43,6 +47,8 @@ def Login(email,password):
         return {"message":"INVALID EMAIL or PASSWORD "}
     
 def PasswordReset(email):
+    email = email.lower()
+    
     if not Validator.isValidEmail(email):
         return {"message":"Not a valid email."}
 
